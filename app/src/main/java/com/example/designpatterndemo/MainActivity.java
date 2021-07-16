@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.designpatterndemo.buildermode.Builder;
+import com.example.designpatterndemo.buildermode.BuilderImpl;
+import com.example.designpatterndemo.buildermode.Computer;
+import com.example.designpatterndemo.buildermode.Director;
 import com.example.designpatterndemo.factorymode.ProductA;
 import com.example.designpatterndemo.factorymode.ProductB;
 import com.example.designpatterndemo.factorymode.ProductFactory;
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         createProductBySimpleFactory();
         createProductByFactory();
+        createProductbyBuilderMode();
     }
 
     /**
@@ -45,5 +50,14 @@ public class MainActivity extends AppCompatActivity {
         //通过ProductFactory创建ProductA实例
         ProductB productB = productFactoryA.createProduct(ProductB.class);
         productB.produce();
+    }
+
+    /**
+     * 客户端通过建造者模式建造产品对象
+     */
+    private void createProductbyBuilderMode() {
+        Builder builder = new BuilderImpl();
+        Director director = new Director(builder);
+        Computer computer = director.creatorComputer("cpu", "ram", "mainboard");
     }
 }
